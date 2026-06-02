@@ -1,0 +1,377 @@
+@media (max-width: 480px) {
+    body { padding-top: 60px !important; }
+    .navbar { padding: 5px 15px !important; }
+    .logo { font-size: 16px !important; }
+    .nav-links li a { font-size: 11px !important; padding: 4px 6px !important; }
+    .card { padding: 20px !important; }
+}
+:root {
+    --bg-color: #05060a;
+    --accent-neon: #00f2ff;
+    --accent-purple: #bc13fe;
+    --text-main: #ffffff;
+    --text-dim: #8a8a8a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-color); }
+::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
+
+/* ==========================================================================
+   BACKGROUND SYSTEM (VIDEO BACKGROUND)
+   ========================================================================== */
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+.video-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4);
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(5,6,10,0.5), var(--bg-color));
+    z-index: -1;
+    pointer-events: none; /* Biar ga ngeblok klik mouse/sentuhan jari */
+}
+
+/* ==========================================================================
+   NAVIGATION BAR
+   ========================================================================== */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 8%;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.logo { 
+    font-weight: 800; 
+    color: var(--accent-neon); 
+    letter-spacing: 2px; 
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a { 
+    text-decoration: none; 
+    color: var(--text-dim); 
+    margin-left: 30px; 
+    font-size: 0.9rem; 
+    transition: 0.3s;
+}
+
+.nav-links a:hover { 
+    color: var(--accent-neon); 
+}
+
+/* ==========================================================================
+   SECTIONS & HERO LAYOUT
+   ========================================================================== */
+.section-container {
+    padding: 100px 8%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-glow {
+    font-size: 4rem;
+    color: var(--accent-neon);
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 15px var(--accent-neon));
+}
+
+.hero h1 { 
+    font-size: 4rem; 
+    font-weight: 800; 
+    margin-bottom: 10px; 
+}
+
+.accent-neon { color: var(--accent-neon); text-shadow: 0 0 10px var(--accent-neon); }
+.accent-purple { color: var(--accent-purple); text-shadow: 0 0 10px var(--accent-purple); }
+
+.tag {
+    background: rgba(255,255,255,0.05);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin: 5px;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: inline-block;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}
+
+/* ==========================================================================
+   CARDS & GRIDS (SKILLS, PERSONAL, TIMELINE)
+   ========================================================================== */
+.card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px;
+    margin-top: 30px;
+}
+
+.wide-card .card-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.icon-big { font-size: 3rem; color: var(--accent-purple); }
+
+/* --- Skill Grid --- */
+.skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.skill-item {
+    background: rgba(255,255,255,0.03);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: 0.3s;
+}
+
+.skill-item i { font-size: 2.5rem; color: var(--accent-neon); margin-bottom: 15px; display: block; }
+.skill-item:hover { border-color: var(--accent-neon); transform: translateY(-10px); }
+
+.btn-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--accent-neon);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* --- Personal Grid (Hobby & Playlist) --- */
+.personal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.personal-card h3 {
+    margin-bottom: 20px;
+    color: var(--accent-purple);
+    font-size: 1.2rem;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255,255,255,0.05);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.music-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-neon);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+}
+
+.hobby-list { list-style: none; }
+.hobby-list li {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.hobby-list li i { color: var(--accent-neon); }
+
+/* --- Timeline Grid --- */
+.timeline-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 30px;
+    position: relative;
+}
+
+.timeline-card {
+    padding: 25px !important;
+    border-left: 4px solid var(--accent-neon) !important;
+}
+
+.year {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-purple);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.timeline-card h3 { font-size: 1.1rem; margin-bottom: 5px; }
+
+/* --- Video Project Card --- */
+.video-project-card {
+    margin: 20px auto; 
+    max-width: 500px;
+    padding: 15px !important;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.main-video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+}
+
+/* ==========================================================================
+   SOSIAL MEDIA & FOOTER
+   ========================================================================== */
+.social-links {
+    margin-top: 25px;
+    display: flex;
+    gap: 20px;
+}
+
+.social-links a {
+    color: var(--text-main);
+    font-size: 1.5rem;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--accent-neon);
+    transform: translateY(-5px);
+    filter: drop-shadow(0 0 8px var(--accent-neon));
+}
+
+footer { text-align: center; padding: 50px; color: #444; font-family: 'JetBrains Mono', monospace; }
+
+/* ==========================================================================
+   ANIMASI UTAMA
+   ========================================================================== */
+.reveal { opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* ==========================================================================
+   MEDIA RESPONSIVE DESIGN (OPTIMASI HP)
+   ========================================================================== */
+@media (max-width: 768px) {
+    nav {
+        padding: 20px 5%;
+    }
+    
+    .nav-links a {
+        margin-left: 15px;
+        font-size: 0.8rem;
+    }
+
+    .section-container {
+        padding: 60px 5%;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem; /* Biar judul nama kamu ga kepotong keluar layar */
+    }
+
+    .profile-glow {
+        font-size: 2.5rem;
+    }
+
+    .card {
+        padding: 25px 20px;
+    }
+
+    .wide-card .card-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .nav-links a {
+        margin: 0 10px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .skill-grid {
+        grid-template-columns: 1fr; /* Jadi satu baris memanjang ke bawah di HP */
+    }
+
+    img, video {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+    .btn-back { position: fixed; top: 85px; left: 15px; color: var(--text-dim); text-decoration: none; font-size: 0.75rem; z-index: 10; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 8px; transition: 0.2s; border: 1px solid rgba(255,255,255,0.05); }
+    .btn-back:hover { color: #fff; background: rgba(0,0,0,0.8); border-color: var(--accent-neon); }
+	

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dukung Kreator - Web Aneh v2.2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #05060a;       
+            --accent-neon: #00f2ff;    
+            --accent-purple: #bc13fe;  
+            --card-bg: rgba(20, 20, 20, 0.8); 
+            --text-main: #ffffff;      
+            --text-dim: #8a8a8a;
+            --primary-color: var(--accent-purple);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body {
+            background-color: var(--bg-color); color: var(--text-main);
+            min-height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; padding: 20px;
+            padding-top: 100px; 
+            overflow-x: hidden;
+        }
+
+        .video-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(188, 19, 254, 0.08) 0%, var(--bg-color) 85%); z-index: -1;
+        }
+
+        /* ============================================================
+           CSS NAVBAR UTAMA (WARISAN FLUTTER 🔥)
+           ============================================================ */
+        .navbar {
+            position: fixed; 
+            top: 0; left: 0; width: 100%; 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 40px; z-index: 1000;  
+            background: rgba(5, 6, 10, 0.7); 
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo {
+            color: white; font-size: 24px; font-weight: 700; text-decoration: none; letter-spacing: 1px; margin-left: 10px; transition: 0.3s;
+        }
+        .logo:hover { color: var(--accent-neon); text-shadow: 0 0 10px var(--accent-neon); }
+
+        .nav-links { list-style: none; display: flex; margin: 0; padding: 0; margin-right: 10px; }
+        .nav-links li { position: relative; margin-left: 15px; }
+        .nav-links li a {
+            color: white; text-decoration: none; font-weight: 500; padding: 8px 12px; display: block; border-radius: 5px; transition: 0.3s;
+        }
+        .nav-links li a:hover {
+            background-color: rgba(255, 255, 255, 0.15); transform: scale(1.03); box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+        }
+
+        .dropdown { position: relative; }
+        .dropdown-content {
+            max-height: 0; opacity: 0; visibility: hidden; 
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out, visibility 0.4s;
+            position: absolute; min-width: 180px; top: 100%; right: 0; margin-top: 5px;
+            background: rgba(20, 20, 20, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 8px 16px rgba(0,0,0,0.5); z-index: 100; border-radius: 8px; overflow: hidden; 
+        }
+        .dropdown:hover .dropdown-content { max-height: 500px; opacity: 1; visibility: visible; }
+        .dropdown-content a { color: white; padding: 12px 16px; text-decoration: none; display: block; text-align: left; transition: 0.2s; }
+        .dropdown-content a:hover { background-color: var(--primary-color); color: white; text-shadow: 0 0 5px #fff; }
+
+        /* ============================================================
+           CSS CARD SUPPORT
+           ============================================================ */
+        .section-container { width: 100%; max-width: 500px; margin: auto; }
+        
+        .card {
+            background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px); border-radius: 24px; padding: 35px 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column; gap: 20px; text-align: center;
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards, pulseGlow 4s ease-in-out infinite alternate;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes pulseGlow {
+            0% { border-color: rgba(255, 255, 255, 0.08); box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 15px rgba(188, 19, 254, 0.05); }
+            100% { border-color: rgba(0, 242, 255, 0.2); box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 25px rgba(0, 242, 255, 0.15); }
+        }
+
+        .header-wrapper { border-bottom: 1px dashed rgba(255, 255, 255, 0.1); padding-bottom: 20px; }
+        .header-wrapper h1 { font-size: 1.6rem; font-weight: 800; margin-top: 5px; }
+        .accent-neon { color: var(--accent-neon); text-shadow: 0 0 10px var(--accent-neon); }
+        .tag {
+            display: inline-block; background: rgba(0, 242, 255, 0.1); color: var(--accent-neon);
+            padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; border: 1px solid rgba(0, 242, 255, 0.2);
+        }
+
+        .support-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.5; padding: 0 10px; }
+
+        /* GRUP LOGO E-WALLET */
+        .ewallet-logo-container {
+            display: flex; justify-content: center; align-items: center; gap: 18px; margin: 10px 0 5px 0; padding: 5px;
+        }
+        .ewallet-icon {
+            font-size: 1.8rem; color: rgba(255, 255, 255, 0.3); transition: 0.4s; filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+        }
+        .ewallet-icon:hover {
+            color: var(--accent-neon); filter: drop-shadow(0 0 8px var(--accent-neon)); transform: scale(1.15);
+        }
+
+        /* AREA TOMBOL PEMICU (MENU SELECTION - MODERNIZED 🔥) */
+        .trigger-container {
+            display: flex; flex-direction: column; gap: 12px;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 16px; border-radius: 20px;
+        }
+        .trigger-title { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 2px; text-align: left; font-weight: 600; letter-spacing: 0.5px; }
+        .trigger-grid { display: flex; justify-content: space-around; gap: 12px; }
+        
+        .trigger-btn {
+            color: var(--text-dim); text-decoration: none; padding: 14px 20px;
+            display: flex; justify-content: center; align-items: center; gap: 10px; background: rgba(255,255,255,0.02); 
+            border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; flex: 1;
+            font-weight: 600; font-size: 0.85rem; position: relative; overflow: hidden;
+        }
+        .trigger-btn i { transition: transform 0.3s ease; }
+        .trigger-btn:hover i { transform: scale(1.2); }
+        
+        .trigger-btn.active-sawer {
+            color: white; background: rgba(188, 19, 254, 0.12); border-color: var(--accent-purple);
+            box-shadow: 0 0 20px rgba(188, 19, 254, 0.3), inset 0 0 8px rgba(188, 19, 254, 0.2);
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+        .trigger-btn.active-qris {
+            color: white; background: rgba(0, 242, 255, 0.1); border-color: var(--accent-neon);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.25), inset 0 0 8px rgba(0, 242, 255, 0.15);
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+        .trigger-btn:hover:not(.active-sawer):not(.active-qris) { 
+            transform: translateY(-2px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); color: white;
+        }
+
+        /* ============================================================
+           MEKANISME SLIDE MENU DONASI (CSS GRID TRICK - SUPER SMOOTH 🔥)
+           ============================================================ */
+        .hidden-menu-wrapper {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+        }
+        
+        /* Inner container wajib di-set overflow hidden */
+        .hidden-menu-inner {
+            overflow: hidden;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease, padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0;
+        }
+
+        /* Trigger Geser Mulus ke Bawah */
+        .hidden-menu-wrapper.slide-down {
+            grid-template-rows: 1fr;
+        }
+
+        .hidden-menu-wrapper.slide-down .hidden-menu-inner {
+            opacity: 1;
+            padding: 20px 0 10px 0;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .slide-content { display: none; width: 100%; }
+        .slide-content.active { display: block; animation: fadeInContent 0.4s ease-out forwards; }
+        @keyframes fadeInContent { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* TOMBOL SAWERIA */
+        .btn-sawer-link {
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+            width: 100%; padding: 16px; background: transparent; border: 2px solid var(--accent-purple);
+            color: white; border-radius: 14px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: 0.4s;
+            margin-top: 12px;
+        }
+        .btn-sawer-link:hover {
+            background: var(--accent-purple); box-shadow: 0 0 25px var(--accent-purple); transform: translateY(-2px);
+        }
+
+        /* QRIS BOX & KEDIP NEON */
+        .qris-container {
+            background: #ffffff; padding: 15px; border-radius: 16px; display: inline-block;
+            margin: 5px auto 15px auto; border: 3px solid var(--accent-purple);
+            animation: purpleNeonBlink 1.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes purpleNeonBlink {
+            0% { border-color: rgba(188, 19, 254, 0.3); box-shadow: 0 5px 15px rgba(0,0,0,0.4), 0 0 5px rgba(188, 19, 254, 0.2); }
+            50% { border-color: rgba(188, 19, 254, 1); box-shadow: 0 5px 25px rgba(0,0,0,0.6), 0 0 25px rgba(188, 19, 254, 0.9); }
+            100% { border-color: rgba(188, 19, 254, 0.5); box-shadow: 0 5px 15px rgba(0,0,0,0.4), 0 0 10px rgba(188, 19, 254, 0.4); }
+        }
+        
+        .qris-img { width: 190px; height: 190px; object-fit: contain; display: block; }
+        
+        .instructions {
+            text-align: left; background: rgba(255, 255, 255, 0.03); border-radius: 12px; padding: 15px; border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .instructions p { font-size: 0.8rem; color: #d0d0d0; margin-bottom: 6px; display: flex; gap: 8px; }
+        .instructions p i { color: var(--accent-neon); margin-top: 3px; }
+
+        /* ============================================================
+           MENU MEDSOS DI BAGIAN PALING BAWAH
+           ============================================================ */
+        .medsos-container {
+            display: flex; flex-direction: column; gap: 10px;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px; border-radius: 16px; transition: 0.4s ease; margin-top: 5px;
+        }
+        .medsos-title { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 5px; text-align: left; font-weight: 600; }
+        .medsos-grid { display: flex; justify-content: space-around; gap: 10px; }
+        .medsos-item {
+            color: var(--text-main); font-size: 1.3rem; text-decoration: none; width: 45px; height: 45px;
+            display: flex; justify-content: center; align-items: center; background: rgba(255,255,255,0.03); 
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; transition: 0.3s;
+        }
+        .medsos-item:hover {
+            color: var(--accent-neon); background: rgba(0, 242, 255, 0.1); border-color: var(--accent-neon);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.3); transform: translateY(-3px);
+        }
+
+        .back-link { font-size: 0.85rem; margin-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 15px; width: 100%; }
+        .back-link a { color: var(--accent-neon); text-decoration: none; transition: 0.3s; }
+        .back-link a:hover { text-shadow: 0 0 8px var(--accent-neon); text-decoration: underline; }
+        @media (max-width: 480px) {
+        body { padding-top: 60px !important; }
+        .navbar { padding: 5px 15px !important; }
+        .logo { font-size: 16px !important; }
+        .nav-links li a { font-size: 11px !important; padding: 4px 6px !important; }
+        .card { padding: 20px !important; }
+}
+    </style>
+</head>
+<body>
+
+    <div class="video-overlay"></div>
+
+    <nav class="navbar">
+        <a href="Portofolio.html" class="logo">Dikz.Web</a>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fa-solid fa-house-user"></i> Home</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn"><i class="fa-solid fa-share-nodes"></i> Social Media <i class="fa-solid fa-arrow-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="https://www.instagram.com/dik.whydn?igsh=MTRkbHQxcnlxb20zOQ==" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram ⤶</a>
+                    <a href="https://www.tiktok.com/@fdikiwahyudin?_t=ZS-90j4WsXjA87&_r=1" target="_blank"><i class="fa-brands fa-tiktok"></i> Tiktok ⤶</a>
+                    <a href="https://www.facebook.com/share/1D2dwnJ7a6/" target="_blank"><i class="fa-brands fa-facebook"></i> Facebook ⤶</a>
+                    <a href="https://t.me/ZeltaSparkle" target="_blank"><i class="fa-brands fa-telegram"></i> Telegram ⤶</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn"><i class="fa-solid fa-medal"></i> About Me <i class="fa-solid fa-arrow-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="CONTACT.html"><i class="fa-solid fa-envelope"></i> Contact Me!</a>
+                    <a href="Portofolio.html"><i class="fa-solid fa-user"></i> Portofolio</a>
+                    <a href="RATING.html"><i class="fa-solid fa-star-half-stroke"></i> Rating</a>
+                    <a href="DONATE.html"><i class="fa-solid fa-hand-holding-medical"></i> Support Me </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="section-container">
+        <div class="card">
+            
+            <div class="header-wrapper">
+                <span class="tag"><i class="fas fa-heart"></i> Support Jaringan</span>
+                <h1>Dukung <span class="accent-neon">Kreator</span></h1>
+            </div>
+
+            <p class="support-desc">
+                Hai! Makasih banyak ya udah mampir. Kalau kamu suka dengan fitur-fitur unik di web aneh ini, dukungan kecil dari kamu bakal berharga banget buat sewa server dan beli kopi penambah tumpukan baris kode! ☕✨
+            </p>
+
+            <div class="ewallet-logo-container">
+                <i class="fa-solid fa-wallet ewallet-icon" title="Dana"></i>
+                <i class="fa-solid fa-money-bill-wave ewallet-icon" title="OVO"></i>
+                <i class="fa-solid fa-coins ewallet-icon" title="Gopay"></i>
+                <i class="fa-solid fa-credit-card ewallet-icon" title="ShopeePay"></i>
+                <i class="fa-solid fa-building-columns ewallet-icon" title="LinkAja"></i>
+            </div>
+            
+            <div class="trigger-container">
+                <div class="trigger-title"><i class="fa-solid fa-hand-holding-heart"></i> Pilih Metode Dukungan :</div>
+                <div class="trigger-grid">
+                    <div class="trigger-btn" id="btnSawerTrigger" onclick="triggerSlideMenu('sawer')">
+                        <i class="fas fa-bolt" style="color: var(--accent-purple);"></i> Instan Link
+                    </div>
+                    <div class="trigger-btn" id="btnQrisTrigger" onclick="triggerSlideMenu('qris')">
+                        <i class="fas fa-qrcode" style="color: var(--accent-neon);"></i> Scan QRIS
+                    </div>
+                </div>
+            </div>
+
+            <!-- PERBAIKAN STRUKTUR ANIMASI SMOOTH 🔥 -->
+            <div class="hidden-menu-wrapper" id="hiddenMenu">
+                <div class="hidden-menu-inner">
+                    
+                    <div id="contentSawer" class="slide-content">
+                        <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 5px;">Dukung lewat e-wallet instan pilihan kamu via platform Saweria.</p>
+                        <a href="https://saweria.co/dikzkulz" target="_blank" class="btn-sawer-link">
+                            Klik Untuk Sawer <i class="fas fa-coffee"></i>
+                        </a>
+                    </div>
+
+                    <div id="contentQris" class="slide-content">
+                        <div class="qris-container">
+                            <img src="QRIS.jpeg" alt="QRIS Donasi" class="qris-img">
+                        </div>
+                        <div class="instructions">
+                            <p><i class="fas fa-mobile-alt"></i> <span>1. Screenshot atau simpan gambar QRIS di atas.</span></p>
+                            <p><i class="fas fa-camera"></i> <span>2. Buka aplikasi e-wallet pilihan kamu.</span></p>
+                            <p><i class="fas fa-qrcode"></i> <span>3. Pilih 'Scan' lalu masukkan gambar QRIS dari galeri hp.</span></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="medsos-container">
+                <div class="medsos-title"><i class="fa-solid fa-circle-nodes"></i> My Social Network :</div>
+                <div class="medsos-grid">
+                    <a href="https://www.instagram.com/dik.whydn?igsh=MTRkbHQxcnlxb20zOQ==" target="_blank" class="medsos-item"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@fdikiwahyudin?_t=ZS-90j4WsXjA87&_r=1" target="_blank" class="medsos-item"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/share/1D2dwnJ7a6/" target="_blank" class="medsos-item"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://t.me/ZeltaSparkle" target="_blank" class="medsos-item"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+                
+                <div class="back-link">
+                    <a href="index.html"><i class="fas fa-arrow-left"></i> Back Main Menu</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- JS REOPTIMIZED BY ZELTA 💻 -->
+    <script>
+        let currentActiveMenu = null;
+
+        function triggerSlideMenu(type) {
+            const menuWrapper = document.getElementById('hiddenMenu');
+            const sawerContent = document.getElementById('contentSawer');
+            const qrisContent = document.getElementById('contentQris');
+            
+            const btnSawer = document.getElementById('btnSawerTrigger');
+            const btnQris = document.getElementById('btnQrisTrigger');
+
+            // JIKA USER MENGKLIK TOMBOL YANG SAMA (Tutup Menu / Slide Up)
+            if (currentActiveMenu === type) {
+                menuWrapper.classList.remove('slide-down');
+                btnSawer.classList.remove('active-sawer');
+                btnQris.classList.remove('active-qris');
+                
+                // Content baru di-hide setelah animasi slide up selesai biar ga jepret
+                setTimeout(() => {
+                    sawerContent.classList.remove('active');
+                    qrisContent.classList.remove('active');
+                }, 500); 
+                
+                currentActiveMenu = null;
+                return;
+            }
+
+            // JIKA MENAMPILKAN MENU BERBEDA ATAU BARU BUKA
+            if (currentActiveMenu !== null) {
+                // Bersihkan state lama dengan cepat tanpa delay mengganggu
+                sawerContent.classList.remove('active');
+                qrisContent.classList.remove('active');
+                btnSawer.classList.remove('active-sawer');
+                btnQris.classList.remove('active-qris');
+            }
+
+            // Aktifkan konten terpilih
+            if (type === 'sawer') {
+                btnSawer.classList.add('active-sawer');
+                sawerContent.classList.add('active');
+            } else if (type === 'qris') {
+                btnQris.classList.add('active-qris');
+                qrisContent.classList.add('active');
+            }
+
+            // Trigger animasi slide down CSS Grid
+            menuWrapper.classList.add('slide-down');
+            currentActiveMenu = type;
+        }
+    </script>
+</body>
+</html>
